@@ -4,39 +4,63 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.apps.quantitymeasurement.QuantityMeasurementApp.Feet;
+import com.apps.quantitymeasurement.QuantityMeasurementApp.Inches;
 
 public class QuantityMeasurementAppTest {
 
+    // ===================== FEET TESTS =====================
+
     @Test
     public void testFeetEquality_SameValue() {
-        Feet f1 = new Feet(5.0);
-        Feet f2 = new Feet(5.0);
-        assertEquals(f1, f2);
+        assertEquals(new Feet(5.0), new Feet(5.0));
     }
 
     @Test
     public void testFeetEquality_DifferentValue() {
-        Feet f1 = new Feet(5.0);
-        Feet f2 = new Feet(6.0);
-        assertNotEquals(f1, f2);
+        assertNotEquals(new Feet(5.0), new Feet(6.0));
     }
 
     @Test
     public void testFeetEquality_NullComparison() {
-        Feet f1 = new Feet(5.0);
-        assertNotEquals(f1, null);
+        assertNotEquals(new Feet(5.0), null);
     }
 
     @Test
     public void testFeetEquality_DifferentClass() {
-        Feet f1 = new Feet(5.0);
-        assertNotEquals(f1, "5.0");
+        assertNotEquals(new Feet(5.0), "5.0");
     }
 
     @Test
     public void testFeetEquality_SameReference() {
-        Feet f1 = new Feet(5.0);
-        Feet f2 = f1;
-        assertEquals(f1, f2);
+        Feet f = new Feet(5.0);
+        assertEquals(f, f);
+    }
+
+    // ===================== INCHES TESTS =====================
+
+    @Test
+    public void testInchesEquality_SameValue() {
+        assertEquals(new Inches(10.0), new Inches(10.0));
+    }
+
+    @Test
+    public void testInchesEquality_DifferentValue() {
+        assertNotEquals(new Inches(10.0), new Inches(12.0));
+    }
+
+    @Test
+    public void testInchesEquality_NullComparison() {
+        assertNotEquals(new Inches(10.0), null);
+    }
+
+    @Test
+    public void testInchesEquality_DifferentClass() {
+        assertNotEquals(new Inches(10.0), "10.0");
+    }
+
+    @Test
+    public void testInchesEquality_SameReference() {
+        Inches i = new Inches(10.0);
+        assertEquals(i, i);
     }
 }

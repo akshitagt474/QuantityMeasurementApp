@@ -2,11 +2,9 @@ package com.apps.quantitymeasurement;
 
 public class Length {
 
-    // Instance variables
     private double value;
     private LengthUnit unit;
 
-    // Enum with conversion to base unit (inches)
     public enum LengthUnit {
         FEET(12.0),
         INCHES(1.0),
@@ -24,37 +22,55 @@ public class Length {
         }
     }
 
-    // Constructor
     public Length(double value, LengthUnit unit) {
         this.value = value;
         this.unit = unit;
     }
 
-    // Convert to base unit (inches)
+    // Convert to base (inches)
     private double convertToBaseUnit() {
-        double result = this.value * this.unit.getConversionFactor();
-        return Math.round(result * 100.0) / 100.0; // round to 2 decimal places
+        double inches = this.value * this.unit.getConversionFactor();
+        return Math.round(inches * 100.0) / 100.0;
     }
 
-    // Compare two Length objects
-    public boolean compare(Length that) {
+    // Compare
+    private boolean compare(Length that) {
         return Double.compare(
                 this.convertToBaseUnit(),
                 that.convertToBaseUnit()
         ) == 0;
     }
 
-    // Override equals
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        if (this == obj)
-            return true;
+        Length other = (Length) o;
+        return compare(other);
+    }
 
-        if (obj == null || getClass() != obj.getClass())
-            return false;
+    // 🔥 UC5: Convert to another unit
+    public Length convertTo(LengthUnit targetUnit) {
 
-        Length other = (Length) obj;
-        return this.compare(other);
+        if (targetUnit == null) {
+            throw new IllegalArgumentException("Target unit cannot be null");
+        }
+
+        // Step 1: convert to inches
+        double baseValue = convertToBaseUnit();
+
+        // Step 2: convert inches → target unit
+        double converted = baseValue / targetUnit.getConversionFactor();
+
+        // Step 3: round
+        converted = Math.round(converted * 100.0) / 100.0;
+
+        return new Length(converted, targetUnit);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%.2f %s", value, unit);
     }
 }

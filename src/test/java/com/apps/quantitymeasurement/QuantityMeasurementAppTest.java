@@ -176,4 +176,33 @@ public class QuantityMeasurementAppTest {
                 )
         );
     }
+
+    @Test
+    public void convertFeetToInches() {
+
+        Length result = QuantityMeasurementApp.demonstrateLengthConversion(
+                3.0,
+                Length.LengthUnit.FEET,
+                Length.LengthUnit.INCHES
+        );
+
+        Length expected = new Length(36.0, Length.LengthUnit.INCHES);
+
+        assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(result, expected));
+    }
+
+    @Test
+    public void convertYardsToInchesUsingOverloadedMethod() {
+
+        Length yards = new Length(2.0, Length.LengthUnit.YARDS);
+
+        Length result = QuantityMeasurementApp.demonstrateLengthConversion(
+                yards,
+                Length.LengthUnit.INCHES
+        );
+
+        Length expected = new Length(72.0, Length.LengthUnit.INCHES);
+
+        assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(result, expected));
+    }
 }
